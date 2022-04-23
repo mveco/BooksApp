@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="booksDB@localhost" uuid="34a43d61-f54b-4279-9296-99c0021234cb">
+    <data-source source="LOCAL" name="Books@localhost" uuid="2a15dd02-a526-40e1-a496-427b9eb1dfbe">
+      <driver-ref>sqlserver.ms</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
+      <jdbc-url>jdbc:sqlserver://localhost;databaseName=Books</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="BooksDB@localhost" uuid="0ebf04d2-0d2f-4eb5-a6b3-26ee6c04505a">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/booksDB</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/BooksDB</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
