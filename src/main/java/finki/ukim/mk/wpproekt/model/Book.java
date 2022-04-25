@@ -2,11 +2,8 @@ package finki.ukim.mk.wpproekt.model;
 
 import lombok.Data;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
-
-import lombok.Data;
 
 import javax.persistence.*;
 
@@ -31,12 +28,12 @@ public class Book {
 
     @ManyToMany
     @JoinTable(
-            name = "BookAuthorRel",
+            name = "book_author_rel",
             joinColumns = {@JoinColumn(name="bookID")},
             inverseJoinColumns = { @JoinColumn(name = "authorID") })
     private List<Author> authors;
 
     @OneToMany(mappedBy = "book")
-    private List<UserReviews> reviews;
+    private List<UserBookInteraction> reviews;
 
 }

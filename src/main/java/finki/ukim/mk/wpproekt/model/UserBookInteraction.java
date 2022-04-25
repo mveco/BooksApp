@@ -6,12 +6,16 @@ import javax.persistence.*;
 
 @Data
 @Entity
-public class UserReviews {
+public class UserBookInteraction {
 
     @Id
     @GeneratedValue
     private Integer ID;
 
+    Boolean readFlag;
+    Boolean readingList;
+    Boolean like;
+    Integer rating;
     String review_text;
 
     @ManyToOne

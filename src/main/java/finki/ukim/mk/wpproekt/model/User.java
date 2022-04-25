@@ -12,6 +12,7 @@ public class User {
 
     @Id
     private String username;
+    private String password;
     private String name;
     private String surname;
     private Integer age;
@@ -19,6 +20,6 @@ public class User {
     private String quote;
 
     @OneToMany(mappedBy = "user")
-    private List<UserReviews> reviews;
+    private List<UserBookInteraction> reviews;
 
 }
