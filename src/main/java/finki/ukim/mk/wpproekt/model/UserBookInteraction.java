@@ -12,11 +12,11 @@ public class UserBookInteraction {
     @GeneratedValue
     private Integer ID;
 
-    Boolean readFlag;
-    Boolean readingList;
-    Boolean like;
+    boolean readFlag;
+    boolean readingList;
+    boolean likes;
     Integer rating;
-    String review_text;
+    String reviewText;
 
     @ManyToOne
     private User user;

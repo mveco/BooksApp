@@ -11,10 +11,11 @@ import java.util.List;
 public class User {
 
     @Id
+    @GeneratedValue
     private String username;
     private String password;
     private String name;
-    private String surname;
+    private String lastName;
     private Integer age;
     private String address;
     private String quote;

@@ -28,8 +28,8 @@ public class Book {
 
     @ManyToMany
     @JoinTable(
-            name = "book_author_rel",
-            joinColumns = {@JoinColumn(name="bookID")},
+            name = "Book_Author",
+            joinColumns = {@JoinColumn(name = "bookID")},
             inverseJoinColumns = { @JoinColumn(name = "authorID") })
     private List<Author> authors;
 
@@ -48,5 +48,9 @@ public class Book {
         this.publication_date = publication_date;
         this.publisher = publisher;
         this.authors = authors;
+    }
+
+    public Book() {
+
     }
 }

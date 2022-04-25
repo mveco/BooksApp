@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:sqlserver://localhost;databaseName=Books</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="BooksDB@localhost" uuid="0ebf04d2-0d2f-4eb5-a6b3-26ee6c04505a">
+    <data-source source="LOCAL" name="BooksDB@localhost" uuid="4739cccc-3114-4cea-a793-3d15a2c914a3">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
