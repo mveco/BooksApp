@@ -36,4 +36,17 @@ public class Book {
     @OneToMany(mappedBy = "book")
     private List<UserBookInteraction> reviews;
 
+    public Book(String title, Float avg_rating, String isbn, String isbn13, String lang_code, Integer num_pages,
+                Integer ratings_count, Date publication_date, Publisher publisher, List<Author> authors) {
+        this.title = title;
+        this.avg_rating = avg_rating;
+        this.isbn = isbn;
+        this.isbn13 = isbn13;
+        this.lang_code = lang_code;
+        this.num_pages = num_pages;
+        this.ratings_count = ratings_count;
+        this.publication_date = publication_date;
+        this.publisher = publisher;
+        this.authors = authors;
+    }
 }
