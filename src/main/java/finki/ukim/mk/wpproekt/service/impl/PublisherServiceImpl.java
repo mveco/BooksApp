@@ -4,10 +4,12 @@ import finki.ukim.mk.wpproekt.model.Publisher;
 import finki.ukim.mk.wpproekt.model.exceptions.PublisherNotFoundException;
 import finki.ukim.mk.wpproekt.repository.PublisherRepository;
 import finki.ukim.mk.wpproekt.service.PublisherService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PublisherServiceImpl implements PublisherService {
 
     private final PublisherRepository publisherRepository;

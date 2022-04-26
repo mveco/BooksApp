@@ -9,11 +9,13 @@ import finki.ukim.mk.wpproekt.repository.AuthorRepository;
 import finki.ukim.mk.wpproekt.repository.BookRepository;
 import finki.ukim.mk.wpproekt.repository.PublisherRepository;
 import finki.ukim.mk.wpproekt.service.BookService;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;

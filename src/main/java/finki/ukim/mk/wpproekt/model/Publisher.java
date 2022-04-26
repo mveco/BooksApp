@@ -15,8 +15,8 @@ public class Publisher {
     private Integer ID;
     private String name;
 
-    @OneToMany(mappedBy = "publisher")
-    private List<Book> books;
+//    @OneToMany(mappedBy = "publisher")
+//    private List<Book> books;
 
     public Publisher(String name) {
         this.name = name;

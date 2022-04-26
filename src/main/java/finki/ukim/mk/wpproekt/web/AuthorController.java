@@ -2,9 +2,8 @@ package finki.ukim.mk.wpproekt.web;
 
 import finki.ukim.mk.wpproekt.model.Author;
 import finki.ukim.mk.wpproekt.service.AuthorService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,24 @@ public class AuthorController {
     @GetMapping
     public List<Author> findAll() {
         return this.authorService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Author> findById(@PathVariable Integer id) {
+        return this.authorService.getById(id)
+                .map(a -> ResponseEntity.ok().body(a))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Author> save(@RequestParam String name) {
+        return this.authorService.create(name)
+                .map(a -> ResponseEntity.ok().body(a))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id){
+        this.authorService.getById(id);
     }
 }
