@@ -1,11 +1,13 @@
-package finki.ukim.mk.wpproekt.repository;
+package mk.ukim.finki.wp.eshop.repository.jpa;
 
-
-import finki.ukim.mk.wpproekt.model.User;
+import mk.ukim.finki.wp.eshop.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
-}
+import java.util.Optional;
 
+@Repository
+public interface UserRepository extends JpaRepository<User, String> {
+    Optional<User> findByUsernameAndPassword(String username, String password);
+    Optional<User> findByUsername(String username);
+}
