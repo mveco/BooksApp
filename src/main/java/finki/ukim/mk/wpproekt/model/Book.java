@@ -24,6 +24,7 @@ public class Book {
     private Integer ratings_count;
     private Date publication_date; //may have problem with format?
     @ManyToOne
+    @JoinColumn(name="publisherID")
     private Publisher publisher;
 
     @ManyToMany
