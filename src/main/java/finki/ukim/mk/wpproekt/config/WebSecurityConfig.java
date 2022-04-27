@@ -1,6 +1,5 @@
-package mk.ukim.finki.wp.eshop.config;
+package finki.ukim.mk.wpproekt.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -28,24 +27,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/assets/**", "/register", "/products", "/api/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .failureUrl("/login?error=BadCredentials")
-                .defaultSuccessUrl("/products", true)
-                .and()
-                .logout()
-                    .logoutUrl("/logout")
-                    .clearAuthentication(true)
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .logoutSuccessUrl("/login")
-                .and()
-                .exceptionHandling().accessDeniedPage("/access_denied");
+//                .antMatchers("/", "/home", "/assets/**", "/register", "/products", "/api/**").permitAll()
+                 .antMatchers("/**").permitAll();
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/login").permitAll()
+//                .failureUrl("/login?error=BadCredentials")
+//                .defaultSuccessUrl("/products", true)
+//                .and()
+//                .logout()
+//                    .logoutUrl("/logout")
+//                    .clearAuthentication(true)
+//                    .invalidateHttpSession(true)
+//                    .deleteCookies("JSESSIONID")
+//                    .logoutSuccessUrl("/login")
+//                .and()
+//                .exceptionHandling().accessDeniedPage("/access_denied");
 
     }
 

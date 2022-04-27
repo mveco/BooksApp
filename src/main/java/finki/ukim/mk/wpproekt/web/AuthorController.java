@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000/authors", allowedHeaders="*")//add
 @RestController
 @RequestMapping("/api/authors")
 public class AuthorController {
@@ -38,6 +39,6 @@ public class AuthorController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
-        this.authorService.getById(id);
+        this.authorService.delete(id);
     }
 }

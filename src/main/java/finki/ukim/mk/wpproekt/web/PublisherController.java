@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000/publishers", allowedHeaders="*")//add
 @RestController
 @RequestMapping("/api/publishers")
 public class PublisherController {
@@ -38,6 +39,6 @@ public class PublisherController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id){
-        this.publisherService.getById(id);
+        this.publisherService.delete(id);
     }
 }

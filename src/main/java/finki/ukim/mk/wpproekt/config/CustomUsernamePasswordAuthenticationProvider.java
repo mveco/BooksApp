@@ -1,6 +1,6 @@
-package mk.ukim.finki.wp.eshop.config;
+package finki.ukim.mk.wpproekt.config;
 
-import mk.ukim.finki.wp.eshop.service.UserService;
+import finki.ukim.mk.wpproekt.service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +20,7 @@ public class CustomUsernamePasswordAuthenticationProvider implements Authenticat
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
+
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

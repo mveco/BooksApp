@@ -1,6 +1,6 @@
-package mk.ukim.finki.wp.eshop.repository.jpa;
+package finki.ukim.mk.wpproekt.repository;
 
-import mk.ukim.finki.wp.eshop.model.User;
+import finki.ukim.mk.wpproekt.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

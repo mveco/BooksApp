@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.eshop.model.exceptions;
+package finki.ukim.mk.wpproekt.model.exceptions;
 
 public class UsernameAlreadyExistsException extends RuntimeException{
     public UsernameAlreadyExistsException(String username) {

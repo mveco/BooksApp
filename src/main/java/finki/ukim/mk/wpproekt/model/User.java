@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.eshop.model;
+package finki.ukim.mk.wpproekt.model;
 
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,11 +8,10 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @Entity
-@Table(name = "shop_users")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -24,6 +23,10 @@ public class User implements UserDetails {
 
     private String surname;
 
+    private Integer age;
+
+    private String quote;
+
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
@@ -33,17 +36,20 @@ public class User implements UserDetails {
     private Role role;
 
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private List<ShoppingCart> carts;
+    @OneToMany(mappedBy = "user")
+    private List<UserBookInteraction> reviews;
 
     public User() {
     }
 
-    public User(String username, String password, String name, String surname, Role role) {
+    public User(String username, String password, String name,
+                String surname, Integer age, String quote, Role role) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.age = age;
+        this.quote = quote;
         this.role = role;
     }
 

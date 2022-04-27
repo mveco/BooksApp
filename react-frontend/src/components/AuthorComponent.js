@@ -1,23 +1,26 @@
-import React, {Component} from 'react';
+import React from 'react';
 import AuthorService from '../services/AuthorService';
+import MenuComponent from './MenuComponent';
 
-class AuthorComponent extends Component{
+class AuthorComponent extends React.Component{
 
     constructor(props){
         super(props)
         this.state = {
-            users: []
+            authors: []
         }
     }
 
     componentDidMount(){
         AuthorService.getAuthors().then((response) => {
-            this.setState({ users: response.data })
+            this.setState({ authors: response.data })
         });
     }
 
     render(){
         return(
+            <>
+            <MenuComponent/>
             <div>
                 <h3 className='text-center'>Authors List</h3>
                 <table className='table table-stripped'>
@@ -40,6 +43,7 @@ class AuthorComponent extends Component{
                     </tbody>
                 </table>
             </div>
+            </>
         );
     }
 }

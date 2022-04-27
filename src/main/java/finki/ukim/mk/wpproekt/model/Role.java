@@ -1,11 +1,6 @@
-package mk.ukim.finki.wp.eshop.model;
+package finki.ukim.mk.wpproekt.model;
 
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 
 public enum Role implements GrantedAuthority {
