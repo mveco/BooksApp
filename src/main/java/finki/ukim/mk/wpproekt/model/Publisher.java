@@ -11,7 +11,7 @@ import java.util.List;
 public class Publisher {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
     private String name;
 
@@ -25,4 +25,17 @@ public class Publisher {
     public Publisher() {
 
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
 }

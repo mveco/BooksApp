@@ -41,8 +41,7 @@ public class PublisherServiceImpl implements PublisherService {
         return Optional.of(this.publisherRepository.save(p));
     }
 
-    @Override
-    public void delete(Integer ID) {
+    public void deleteById(Integer ID) {
         this.publisherRepository.deleteById(ID);
     }
 

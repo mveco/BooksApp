@@ -10,7 +10,7 @@ public interface PublisherService {
 
     Optional<Publisher> create(String name);
     Optional<Publisher> update(Integer ID, String name);
-    void delete(Integer ID);
+    void deleteById(Integer ID);
 
     Optional<Publisher> getByName(String name);
     Optional<Publisher> getById(Integer ID);

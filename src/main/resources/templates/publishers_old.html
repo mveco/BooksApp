@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Publishers</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<h3>Add New Publisher</h3>
+<form th:action="@{/publishers/add}" th:method="POST">
+    <label for='name'>Name:</label>:<input id='name' type='text' name='name'/>
+    <input type='submit' value='Submit'/>
+</form>
+<!--<h2>Info about our request</h2>-->
+<!--<div th:text="${ipAddress}"></div>-->
+<!--<div th:text="${clientAgent}"></div>-->
+
+<!--<th:block th:if="${session.user!=null}">-->
+<!--    <h2>Info about user</h2>-->
+<!--    <div th:text="${session.user.username}"></div>-->
+<!--    <div th:text="${session.user.name}"></div>-->
+<!--    <div th:text="${session.user.surname}"></div>-->
+<!--    <div>-->
+<!--        <a href="/logout">Logout</a>-->
+<!--    </div>-->
+<!--</th:block>-->
+
+<h2>Publishers</h2>
+<ul class="list-group">
+    <li class="list-group-item " th:each="publisher: ${publishers}">
+        <a th:href="@{'/publishers{id}' (id=${publisher.getID()})}">
+            <th:block th:text="${publisher.name}"/>
+        </a>
+        <!--        <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+        <th:block>
+            <form th:action="@{'/publishers/delete/{id}' (id=${publisher.getID()})}"
+                  th:method="DELETE">
+                <button type="submit"
+                        class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash">Delete</i>
+                </button>
+            </form>
+        </th:block>
+        <!--        <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+        <th:block>
+            <a th:href="@{'/publishers/edit/{id}' (id=${publisher.getID()})}"
+               class="btn btn-sm btn-info edit-product">
+                <i class="fa fa-trash">Edit</i>
+            </a>
+        </th:block>
+    </li>
+</ul>
+
+</body>
+</html>
