@@ -5,17 +5,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
-
+<div th:insert="fragments/header :: header"></div>
 <div class="container">
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
-                <div class="col-sm-8"><h2><b>Publishers</b></h2></div>
-                <div class="col-sm-4">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4"><h2><b></b></h2></div>
+                <div class="col-sm-4"><h2><b>Publishers</b></h2></div>
                 <div class="col-sm-8">
                     <form action="publishers/add" method="POST">
                         <div class="form-group">
@@ -66,7 +61,7 @@
                 </td>
                 <td >
                         <form th:action="@{'/publishers/delete/{id}' (id=${publisher.getID()})}"
-                              th:method="DELETE">
+                              th:method="POST">
                             <button type="submit"
                                     class="btn btn-sm btn-danger">
                                 <i class="fa fa-trash">Delete</i>

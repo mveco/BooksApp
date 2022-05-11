@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+        <head>
+        <title>Update publisher</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-12"><h2><b>Update publisher</b></h2></div>
+                <div class="col-sm-0">
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td>
+                <form action="/publishers/edited" method="POST">
+                    <div class="form-group">
+                        <input type="hidden"
+                               id = "id"
+                               class="form-control"
+                               th:name="id"
+                               required
+                               th:value = "${publisher.getID()}">
+                        <label for="name">Publisher name</label>
+                        <input id = "name"
+                               type="text"
+                               class="form-control"
+                               th:name="name"
+                               required
+                               th:value = "${publisher.name}">
+                    </div>
+                    <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Save changes</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a th:href="@{'/publishers'}"><button class="btn btn-success right">Back</button></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
