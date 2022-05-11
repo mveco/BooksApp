@@ -42,7 +42,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public void delete(Integer ID) {
+    public void deleteById(Integer ID) {
 
         this.authorRepository.deleteById(ID);
     }
@@ -64,6 +64,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAllByName(String name) {
-        return authorRepository.findAllByNameLike(name);
+        return authorRepository.findAllByNameLike('%' + name + '%');
     }
 }

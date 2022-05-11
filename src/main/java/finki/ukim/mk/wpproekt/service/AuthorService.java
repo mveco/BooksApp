@@ -9,7 +9,7 @@ public interface AuthorService {
 
     Optional<Author> create(String name);
     Optional<Author> update(Integer ID, String name);
-    void delete(Integer ID);
+    void deleteById(Integer ID);
 
     Optional<Author> getByName(String name);
     Optional<Author> getById(Integer ID);

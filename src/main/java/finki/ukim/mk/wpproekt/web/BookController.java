@@ -1,19 +1,21 @@
 package finki.ukim.mk.wpproekt.web;
 
+import finki.ukim.mk.wpproekt.model.Author;
 import finki.ukim.mk.wpproekt.model.Book;
 import finki.ukim.mk.wpproekt.model.Publisher;
 import finki.ukim.mk.wpproekt.service.AuthorService;
 import finki.ukim.mk.wpproekt.service.BookService;
 import finki.ukim.mk.wpproekt.service.PublisherService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000/authors", allowedHeaders="*")//add
-@RestController
-@RequestMapping("/api/books")
+@Controller
+@RequestMapping("/books")
 public class BookController {
 
     private final BookService bookService;
@@ -27,15 +29,22 @@ public class BookController {
         this.publisherService = publisherService;
     }
 
-    public List<Book> findAll(){
-        return this.bookService.getAll();
+    @GetMapping
+    public String findAll(@RequestParam(required = false) String namePart, Model model){
+        List<Book> books;
+        if(namePart == null || namePart.equals(""))
+            books =  this.bookService.getAll();
+        else
+            books = this.bookService.getAllByTitle(namePart);
+
+        model.addAttribute("books", books);
+        return "books";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> findById(@PathVariable Integer id) {
-        return this.bookService.getById(id)
-                .map(a -> ResponseEntity.ok().body(a))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public String findById(@PathVariable Integer id) {
+        Book book = this.bookService.getById(id).get();
+        
     }
 
     @PostMapping("/add")

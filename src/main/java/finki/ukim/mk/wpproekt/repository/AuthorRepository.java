@@ -12,5 +12,6 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
     Optional<Author> findByName(String name);
     List<Author> findAllByNameLike(String name);
+    void deleteById(Integer id);
     void deleteByName(String name);
 }

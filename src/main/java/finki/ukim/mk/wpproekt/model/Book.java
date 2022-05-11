@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Book {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
     private String title;
     private Float avg_rating;
@@ -23,6 +23,7 @@ public class Book {
     private Integer num_pages;
     private Integer ratings_count;
     private Date publication_date; //may have problem with format?
+
     @ManyToOne
     @JoinColumn(name="publisherID")
     private Publisher publisher;
@@ -53,5 +54,13 @@ public class Book {
 
     public Book() {
 
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
     }
 }

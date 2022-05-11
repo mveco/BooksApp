@@ -11,7 +11,7 @@ import java.util.List;
 public class Author {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
     private String name;
 
@@ -22,17 +22,17 @@ public class Author {
     public Author() {
 
     }
-//
-//    public Author() {
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
 
+    public String getName() {
+        return name;
+    }
+
+    public Integer getID() {
+        return ID;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }

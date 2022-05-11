@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Authors</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-4"><h2><b>Authors</b></h2></div>
+                <div class="col-sm-8">
+                    <form action="authors/add" method="POST">
+                        <div class="form-group">
+                            <label for="name">Author name</label>
+                            <input id = "name"
+                                   type="text"
+                                   class="form-control"
+                                   th:name="name"
+                                   required
+                                   placeholder="Enter author name">
+                        </div>
+                        <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4"><h2><b></b></h2></div>
+                <div class="col-sm-8">
+                    <form id='filter-form' >
+                        <div class="form-group">
+                            <label for="namePart">Search by name</label>
+                            <input id="namePart"
+                                   type="text"
+                                   class="form-control"
+                                   th:name="namePart"
+                                   required
+                                   placeholder="Enter author name">
+                        </div>
+                        <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="col-sm-8">Name</th>
+                <th class="col-sm-4">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="author: ${authors}">
+                <td>
+                    <a th:href="@{'/author/{id}' (id=${author.getID()})}">
+                        <th:block th:text="${author.name}"/>
+                    </a>
+                </td>
+                <td >
+                        <form th:action="@{'/authors/delete/{id}' (id=${author.getID()})}"
+                              th:method="POST">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash">Delete</i>
+                            </button>
+                        </form>
+                        <a th:href="@{'/authors/edit/{id}' (id=${author.getID()})}"
+                           class="btn btn-sm btn-info edit-product">
+                            <i class="fa fa-trash">Edit</i>
+                        </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

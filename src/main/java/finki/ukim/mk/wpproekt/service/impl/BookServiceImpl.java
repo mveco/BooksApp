@@ -85,12 +85,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Optional<Publisher> getPublisher() {
+        return null;
+    }
+
+    @Override
     public List<Book> getAll() {
         return this.bookRepository.findAll();
     }
 
     @Override
     public List<Book> getAllByTitle(String title) {
-        return this.bookRepository.findAllByTitleLike(title);
+        return this.bookRepository.findAllByTitleLike('%' + title + '%');
     }
 }
