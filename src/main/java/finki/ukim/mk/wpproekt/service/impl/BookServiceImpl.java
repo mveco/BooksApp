@@ -84,10 +84,6 @@ public class BookServiceImpl implements BookService {
         return this.bookRepository.findById(ID);
     }
 
-    @Override
-    public Optional<Publisher> getPublisher() {
-        return null;
-    }
 
     @Override
     public List<Book> getAll() {

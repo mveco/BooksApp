@@ -19,8 +19,6 @@ public interface BookService{
     Optional<Book> getByTitle(String title);
     Optional<Book> getById(Integer ID);
 
-    Optional<Publisher> getPublisher();
-
     List<Book> getAll();
     List<Book> getAllByTitle(String title);
 }

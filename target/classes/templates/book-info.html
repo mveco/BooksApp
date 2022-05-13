@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Authors</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-12"><h2><b>Book info</b></h2></div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="col-sm-4">Title</th>
+            <th class="col-sm-6"><th:block th:text="${book.getTitle()}"/></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Authors</td>
+            <td>
+                <ul>
+                    <li th:each="author : ${book.getAuthors()}">
+                        <th:block th:text ="${author.getName()}";/>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>Language</td>
+            <td><th:block th:text="${book.getLang_code()}"/></td>
+        </tr>
+        <tr>
+            <td>Number of pages</td>
+            <td><th:block th:text="${book.getNum_pages()}"/></td>
+        </tr>
+        <tr>
+            <td>Average rating</td>
+            <td><th:block th:text="${book.getAvg_rating()}"/></td>
+        </tr>
+        <tr>
+            <td>Ratings count</td>
+            <td><th:block th:text="${book.getRatings_count()}"/></td>
+        </tr>
+        <tr>
+            <td>Publisher</td>
+            <td><th:block th:text="${book.getPublisher().getName()}"/></td>
+        </tr>
+        <tr>
+            <td>Publication date</td>
+            <td><th:block th:text="${book.getPublication_date()}"/></td>
+        </tr>
+        <tr>
+            <td>ISBN</td>
+            <td><th:block th:text="${book.getIsbn()}"/></td>
+        </tr>
+        <tr>
+            <td>ISBN13</td>
+            <td><th:block th:text="${book.getIsbn13()}"/></td>
+        </tr>
+        <tr>
+            <td>Actions</td>
+            <td >
+                <form th:action="@{'/books/delete/{id}' (id=${book.getID()})}"
+                      th:method="POST">
+                    <button type="submit"
+                            class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash">Delete</i>
+                    </button>
+                </form>
+                <a th:href="@{'/books/edit/{id}' (id=${book.getID()})}"
+                   class="btn btn-sm btn-info edit-product">
+                    <i class="fa fa-trash">Edit</i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+</html>

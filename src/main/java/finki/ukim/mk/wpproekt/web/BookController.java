@@ -3,6 +3,8 @@ package finki.ukim.mk.wpproekt.web;
 import finki.ukim.mk.wpproekt.model.Author;
 import finki.ukim.mk.wpproekt.model.Book;
 import finki.ukim.mk.wpproekt.model.Publisher;
+import finki.ukim.mk.wpproekt.model.exceptions.BookNotFoundException;
+import finki.ukim.mk.wpproekt.model.exceptions.PublisherNotFoundException;
 import finki.ukim.mk.wpproekt.service.AuthorService;
 import finki.ukim.mk.wpproekt.service.BookService;
 import finki.ukim.mk.wpproekt.service.PublisherService;
@@ -11,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,31 +47,67 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public String findById(@PathVariable Integer id) {
+    public String findById(Model model, @PathVariable Integer id) {
         Book book = this.bookService.getById(id).get();
-        
+        model.addAttribute("book", book);
+        return "book-info";
+    }
+
+    @GetMapping("/addForm/{id}")
+    public String addForm(Model model, @PathVariable(value = "null", required = false) Integer id){
+        List<Author> authors = this.authorService.getAll();
+        List<Publisher> publishers = this.publisherService.getAll();
+        Book book = null;
+        if (id != null){
+            book = this.bookService.getById(id).get();
+        }
+        model.addAttribute("book", book);
+        model.addAttribute("authors", authors);
+        model.addAttribute("publishers", publishers);
+        return "book-add";
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Book> save(@RequestParam String title,
-                                     @RequestParam(value = "0.0", required=false) Float avg_rating,
+    public String save(@RequestParam String title,
+                                     @RequestParam Float avg_rating,
                                      @RequestParam(value = "", required=false) String isbn,
                                      @RequestParam(value = "", required=false) String isbn13,
                                      @RequestParam String lang_code,
                                      @RequestParam Integer num_pages,
-                                     @RequestParam(value = "0", required=false) Integer ratings_count,
-                                     @RequestParam(value = "", required=false) Date publication_date,
+                                     @RequestParam Integer ratings_count,
+                                     @RequestParam(value = "", required=false) String publication_date,
                                      @RequestParam Integer publisherID,
-                                     @RequestParam List<Integer> authorsID) {
-        return this.bookService.create(title, avg_rating, isbn, isbn13, lang_code, num_pages, ratings_count,
-                        publication_date, publisherID, authorsID)
-                .map(a -> ResponseEntity.ok().body(a))
-                .orElseGet(() -> ResponseEntity.badRequest().build());
+                                     @RequestParam List<Integer> authorsID) throws ParseException {
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        this.bookService.create(title, avg_rating, isbn, isbn13, lang_code, num_pages, ratings_count,
+                        date.parse(publication_date), publisherID, authorsID);
+        return "redirect:/books";
+    }
+
+    @PostMapping("/edit")
+    public String edit(@RequestParam Integer id,
+                       @RequestParam String title,
+                       @RequestParam Float avg_rating,
+                       @RequestParam(value = "", required=false) String isbn,
+                       @RequestParam(value = "", required=false) String isbn13,
+                       @RequestParam String lang_code,
+                       @RequestParam Integer num_pages,
+                       @RequestParam Integer ratings_count,
+                       @RequestParam(value = "", required=false) String publication_date,
+                       @RequestParam Integer publisherID,
+                       @RequestParam List<Integer> authorsID) throws ParseException {
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+
+        this.bookService.update(id, title, avg_rating, isbn, isbn13, lang_code, num_pages,
+                ratings_count, date.parse(publication_date), publisherID, authorsID);
+
+        return "redirect:/books";
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id){
+    public String delete(@PathVariable Integer id){
         this.bookService.delete(id);
+        return "redirect:/books";
     }
 
 

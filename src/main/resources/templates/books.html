@@ -10,7 +10,13 @@
     <div class="table-wrapper">
         <div class="table-title">
             <div class="row">
-                <div class="col-sm-12"><h2><b>Books</b></h2></div>
+                <div class="col-sm-9"><h2><b>Books</b></h2></div>
+                <div class="col-sm-3">
+                    <a th:href="@{'/books/addForm/{}'}"
+                       class="btn btn-sm btn-info edit-product">
+                        <i class="fa fa-trash">Add new</i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -52,7 +58,7 @@
                         <i class="fa fa-trash">Delete</i>
                     </button>
                 </form>
-                <a th:href="@{'/books/edit/{id}' (id=${book.getID()})}"
+                <a th:href="@{'/books/addForm/{id}' (id=${book.getID()})}"
                    class="btn btn-sm btn-info edit-product">
                     <i class="fa fa-trash">Edit</i>
                 </a>
