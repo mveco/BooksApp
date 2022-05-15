@@ -9,12 +9,12 @@ import javax.persistence.*;
 public class UserBookInteraction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
 
     boolean readFlag;
     boolean readingList;
-    boolean likes;
+    boolean like;
     Integer rating;
     String reviewText;
 
@@ -23,4 +23,14 @@ public class UserBookInteraction {
 
     @ManyToOne
     private Book book;
+
+    public UserBookInteraction(User user, Book book, boolean readFlag, boolean readingList, boolean like, Integer rating, String reviewText) {
+        this.readFlag = readFlag;
+        this.readingList = readingList;
+        this.like = like;
+        this.rating = rating;
+        this.reviewText = reviewText;
+        this.user = user;
+        this.book = book;
+    }
 }

@@ -65,6 +65,6 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Override
     public List<Publisher> getAllByName(String name) {
-        return this.publisherRepository.findAllByNameLike('%' + name + '%');
+        return this.publisherRepository.findAllByNameLike("%" + name + "%");
     }
 }

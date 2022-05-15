@@ -1,72 +1,63 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Authors</title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-</head>
-<body>
-<div th:insert="fragments/header :: header"></div>
-<div class="container">
-    <div class="table-wrapper">
-        <div class="table-title">
-            <div class="row">
-                <div class="col-sm-9"><h2><b>Books</b></h2></div>
-                <div class="col-sm-3">
-                    <a th:href="@{'/books/addForm/{}'}"
-                       class="btn btn-sm btn-info edit-product">
-                        <i class="fa fa-trash">Add new</i>
-                    </a>
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <div class="container py-7">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row" style="padding-top: 15px; padding-bottom: 10px;">
+                    <div class="col-sm-6"><h2><b>Books</b></h2></div>
+                    <div class="col-sm-6">
+                        <a th:href="@{'/books/admin/addForm/{}'}"
+                           class="btn btn-bg btn-success">
+                            <i class="fa fa-trash">Add new</i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="col-sm-4">Title</th>
+                <th class="col-sm-1">No. Pages</th>
+                <th class="col-sm-1">Language</th>
+                <th class="col-sm-1">Rating</th>
+                <th class="col-sm-1">No. Ratings</th>
+                <th class="col-sm-2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book: ${books}">
+                <td>
+                    <a th:href="@{'/books/{id}' (id=${book.getID()})}">
+                        <th:block th:text="${book.getTitle()}"/>
+                    </a>
+                </td>
+                <td>
+                    <th:block th:text="${book.getNum_pages()}"/>
+                </td>
+                <td>
+                    <th:block th:text="${book.getLang_code()}"/>
+                </td>
+                <td>
+                    <th:block th:text="${book.getAvg_rating()}"/>
+                </td>
+                <td>
+                    <th:block th:text="${book.getNum_pages()}"/>
+                </td>
+                <td>
+                    <form th:action="@{'/books/admin/delete/{id}' (id=${book.getID()})}"
+                          th:method="POST">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash">Delete</i>
+                        </button>
+                    </form>
+                    <a th:href="@{'/books/admin/addForm/{id}' (id=${book.getID()})}"
+                       class="btn btn-sm btn-info edit-product">
+                        <i class="fa fa-trash">Edit</i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th class="col-sm-4">Title</th>
-            <th class="col-sm-1">No. Pages</th>
-            <th class="col-sm-1">Language</th>
-            <th class="col-sm-1">Rating</th>
-            <th class="col-sm-1">No. Ratings</th>
-            <th class="col-sm-2">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="book: ${books}">
-            <td>
-                <a th:href="@{'/books/{id}' (id=${book.getID()})}">
-                    <th:block th:text="${book.getTitle()}"/>
-                </a>
-            </td>
-            <td>
-                <th:block th:text="${book.getNum_pages()}"/>
-            </td>
-            <td>
-                <th:block th:text="${book.getLang_code()}"/>
-            </td>
-            <td>
-                <th:block th:text="${book.getAvg_rating()}"/>
-            </td>
-            <td>
-                <th:block th:text="${book.getNum_pages()}"/>
-            </td>
-            <td >
-                <form th:action="@{'/books/delete/{id}' (id=${book.getID()})}"
-                      th:method="POST">
-                    <button type="submit"
-                            class="btn btn-sm btn-danger">
-                        <i class="fa fa-trash">Delete</i>
-                    </button>
-                </form>
-                <a th:href="@{'/books/addForm/{id}' (id=${book.getID()})}"
-                   class="btn btn-sm btn-info edit-product">
-                    <i class="fa fa-trash">Edit</i>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-</div>
-</body>
-</html>
+</th:block>

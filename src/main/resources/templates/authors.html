@@ -1,49 +1,45 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Authors</title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-</head>
-<body>
-<div th:insert="fragments/header :: header"></div>
-<div class="container">
-    <div class="table-wrapper">
-        <div class="table-title">
-            <div class="row">
-                <div class="col-sm-4"><h2><b>Authors</b></h2></div>
-                <div class="col-sm-8">
-                    <form action="authors/add" method="POST">
-                        <div class="form-group">
-                            <label for="name">Author name</label>
-                            <input id = "name"
-                                   type="text"
-                                   class="form-control"
-                                   th:name="name"
-                                   required
-                                   placeholder="Enter author name">
-                        </div>
-                        <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                    </form>
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <div class="container mb-2">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-4"><h2><b>Authors</b></h2></div>
+                    <div class="col-sm-8">
+                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <form action="authors/add" method="POST">
+                                <div class="form-group">
+                                    <label for="name">Author name</label>
+                                    <input id="name"
+                                           type="text"
+                                           class="form-control"
+                                           th:name="name"
+                                           required
+                                           placeholder="Enter author name">
+                                </div>
+                                <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New
+                                </button>
+                            </form>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"><h2><b></b></h2></div>
+                    <div class="col-sm-8">
+                        <form id='filter-form'>
+                            <div class="form-group">
+                                <label for="namePart">Search by name</label>
+                                <input id="namePart"
+                                       type="text"
+                                       class="form-control"
+                                       th:name="namePart"
+                                       required
+                                       placeholder="Enter author name">
+                            </div>
+                            <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Search</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-4"><h2><b></b></h2></div>
-                <div class="col-sm-8">
-                    <form id='filter-form' >
-                        <div class="form-group">
-                            <label for="namePart">Search by name</label>
-                            <input id="namePart"
-                                   type="text"
-                                   class="form-control"
-                                   th:name="namePart"
-                                   required
-                                   placeholder="Enter author name">
-                        </div>
-                        <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Search</button>
-                    </form>
-                </div>
-            </div>
-        </div>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -59,7 +55,8 @@
                         <th:block th:text="${author.name}"/>
                     </a>
                 </td>
-                <td >
+                <td>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <form th:action="@{'/authors/delete/{id}' (id=${author.getID()})}"
                               th:method="POST">
                             <button type="submit"
@@ -67,15 +64,16 @@
                                 <i class="fa fa-trash">Delete</i>
                             </button>
                         </form>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <a th:href="@{'/authors/edit/{id}' (id=${author.getID()})}"
                            class="btn btn-sm btn-info edit-product">
                             <i class="fa fa-trash">Edit</i>
                         </a>
+                    </th:block>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
-</div>
-</body>
-</html>
+</th:block>

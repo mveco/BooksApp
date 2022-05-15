@@ -27,33 +27,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()
                 .authorizeRequests()
-//                .antMatchers("/", "/home", "/assets/**", "/register", "/products", "/api/**").permitAll()
-                 .antMatchers("/**").permitAll();
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .formLogin()
-//                .loginPage("/login").permitAll()
-//                .failureUrl("/login?error=BadCredentials")
-//                .defaultSuccessUrl("/products", true)
-//                .and()
-//                .logout()
-//                    .logoutUrl("/logout")
-//                    .clearAuthentication(true)
-//                    .invalidateHttpSession(true)
-//                    .deleteCookies("JSESSIONID")
-//                    .logoutSuccessUrl("/login")
-//                .and()
-//                .exceptionHandling().accessDeniedPage("/access_denied");
+                .antMatchers("/", "/books", "/authors", "/publishers", "/register", "/{}").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/**/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .failureUrl("/login?error=BadCredentials")
+                .defaultSuccessUrl("/books", true)
+                .and()
+                .logout().logoutUrl("/logout")
+                    .clearAuthentication(true)
+                    .invalidateHttpSession(true)
+                    .deleteCookies("JSESSIONID")
+                    .logoutSuccessUrl("/login")
+                .and()
+                .exceptionHandling().accessDeniedPage("/access_denied");
 
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
 //        auth.inMemoryAuthentication()
-//                .withUser("kostadin.mishev")
-//                .password(passwordEncoder.encode("km"))
+//                .withUser("user")
+//                .password(passwordEncoder.encode("user"))
 //                .authorities("ROLE_USER")
 //                .and()
 //                .withUser("admin")

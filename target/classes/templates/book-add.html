@@ -1,222 +1,215 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Authors</title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-</head>
-<body>
-<div th:insert="fragments/header :: header"></div>
-<div class="container">
-    <div class="table-wrapper">
-        <div class="table-title">
-            <div class="row">
-                <div class="col-sm-12"><h2><b>Edit book</b></h2></div>
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-12"><h2><b>Edit book</b></h2></div>
+                </div>
             </div>
         </div>
-    </div>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th class="col-sm-3">Insert/alter info about the book</th>
-        </tr>
-        </thead>
-        <tbody>
-        <form action="/books/add" method="post">
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <input id="id" type="hidden" name="id" th:value="(${book} != null ? ${book.getID()} : null)">
+                <th class="col-sm-3">Insert/alter info about the book</th>
             </tr>
-            <tr>
-                <td>
-                    <label for="title">Title</label>
-                </td>
-                <td>
-                    <input type="text"
-                           class="form-control"
-                           id="title"
-                           th:name="title"
-                           th:value="(${book} != null ? ${book.getTitle()} : '')"
-                           required>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-sm-3">
-                    <label>Authors</label>
-                </td>
-                <td class="col-sm-7">
-                    <div style="height:350px;width:700px;border:1px solid #ccc;overflow:auto;">
-                        <div th:if="${book} != null"
-                             th:each="author : ${authors}">
-                            <input
-                                    th:selected="${book.getAuthors() != null &&
+            </thead>
+            <tbody>
+            <form action="/books/add" method="post">
+                <tr>
+                    <input id="id" type="hidden" name="id" th:value="(${book} != null ? ${book.getID()} : null)">
+                </tr>
+                <tr>
+                    <td>
+                        <label for="title">Title</label>
+                    </td>
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               id="title"
+                               th:name="title"
+                               th:value="(${book} != null ? ${book.getTitle()} : '')"
+                               required
+                               placeholder="Enter title">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sm-3">
+                        <label>Authors</label>
+                    </td>
+                    <td class="col-sm-7">
+                        <div style="height:350px;width:700px;border:1px solid #ccc;overflow:auto;">
+                            <div th:if="${book} != null"
+                                 th:each="author : ${authors}">
+                                <input
+                                        th:selected="${book.getAuthors() != null &&
                                     book.getAuthors().contains(author)}"
-                                    type="checkbox"
-                                    th:id="${author.getID()}"
-                                    th:name="authorsID"
-                                    th:value="${author.getID()}"/>
-                            <label th:for="${author.getID()}">
-                                <th:block th:text = "${author.getName()}"/>
-                            </label>
+                                        type="checkbox"
+                                        th:id="${author.getID()}"
+                                        th:name="authorsID"
+                                        th:value="${author.getID()}"/>
+                                <label th:for="${author.getID()}">
+                                    <th:block th:text="${author.getName()}"/>
+                                </label>
+                            </div>
+                            <div th:if="${book} == null"
+                                 th:each="author : ${authors}">
+                                <input
+                                        type="checkbox"
+                                        th:id="${author.getID()}"
+                                        th:name="authorsID"
+                                        th:value="${author.getID()}"/>
+                                <label th:for="${author.getID()}">
+                                    <th:block th:text="${author.getName()}"/>
+                                </label>
+                            </div>
                         </div>
-                        <div th:if="${book} == null"
-                             th:each="author : ${authors}">
-                            <input
-                                   type="checkbox"
-                                   th:id="${author.getID()}"
-                                   th:name="authorsID"
-                                   th:value="${author.getID()}"/>
-                            <label th:for="${author.getID()}">
-                                <th:block th:text = "${author.getName()}"/>
-                            </label>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="lang_code">Language code</label>
-                </td>
-                <td>
-                    <input type="text"
-                           class="form-control"
-                           id="lang_code"
-                           th:name="lang_code"
-                           th:value="(${book} != null ? ${book.getLang_code()} : '')"
-                           required>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="num_pages">Number of pages</label>
-                </td>
-                <td>
-                    <input type="number"
-                           class="form-control"
-                           id="num_pages"
-                           th:name="num_pages"
-                           th:value="(${book} != null ? ${book.getNum_pages()} : '')"
-                           required
-                           placeholder="Enter number of pages">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="avg_rating">Average rating</label>
-                </td>
-                <td>
-                    <input type="number"
-                           class="form-control"
-                           id="avg_rating"
-                           th:name="avg_rating"
-                           th:value="(${book} != null ? ${book.getAvg_rating()} : '')"
-                           required
-                           placeholder="Enter average rating">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="ratings_count">Ratings Count</label>
-                </td>
-                <td>
-                    <input type="number"
-                           class="form-control"
-                           id="ratings_count"
-                           th:name="ratings_count"
-                           th:value="(${book} != null ? ${book.getRatings_count()} : '')"
-                           required
-                           placeholder="Enter ratings count">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Publisher</label>
-                </td>
-                <td>
-                    <div style="height:350px;width:700px;border:1px solid #ccc;overflow:auto;">
-                        <div th:if="${book} != null"
-                             th:each="publisher : ${publishers}">
-                            <input
-                                    th:selected="${book.getPublisher() != null &&
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="lang_code">Language code</label>
+                    </td>
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               id="lang_code"
+                               th:name="lang_code"
+                               th:value="(${book} != null ? ${book.getLang_code()} : '')"
+                               required
+                               placeholder="Enter language code">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="num_pages">Number of pages</label>
+                    </td>
+                    <td>
+                        <input type="number"
+                               class="form-control"
+                               id="num_pages"
+                               th:name="num_pages"
+                               th:value="(${book} != null ? ${book.getNum_pages()} : '')"
+                               required
+                               placeholder="Enter number of pages">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="avg_rating">Average rating</label>
+                    </td>
+                    <td>
+                        <input type="number"
+                               class="form-control"
+                               id="avg_rating"
+                               th:name="avg_rating"
+                               th:value="(${book} != null ? ${book.getAvg_rating()} : '')"
+                               required
+                               placeholder="Enter average rating">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="ratings_count">Ratings Count</label>
+                    </td>
+                    <td>
+                        <input type="number"
+                               class="form-control"
+                               id="ratings_count"
+                               th:name="ratings_count"
+                               th:value="(${book} != null ? ${book.getRatings_count()} : '')"
+                               required
+                               placeholder="Enter ratings count">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Publisher</label>
+                    </td>
+                    <td>
+                        <div style="height:350px;width:700px;border:1px solid #ccc;overflow:auto;">
+                            <div th:if="${book} != null"
+                                 th:each="publisher : ${publishers}">
+                                <input
+                                        th:selected="${book.getPublisher() != null &&
                                     book.getPublisher().getID() == publisher.getID()}"
-                                    type="radio"
-                                    th:id="${publisher.getID()}"
-                                    th:name="publisherID"
-                                    th:value="${publisher.getID()}"/>
-                            <label th:for="${publisher.getID()}">
-                                <th:block th:text = "${publisher.getName()}"/>
-                            </label>
+                                        type="radio"
+                                        th:id="${publisher.getID()}"
+                                        th:name="publisherID"
+                                        th:value="${publisher.getID()}"/>
+                                <label th:for="${publisher.getID()}">
+                                    <th:block th:text="${publisher.getName()}"/>
+                                </label>
+                            </div>
+                            <div th:if="${book} == null"
+                                 th:each="publisher : ${publishers}">
+                                <input
+                                        type="radio"
+                                        th:id="${publisher.getID()}"
+                                        th:name="publisherID"
+                                        th:value="${publisher.getID()}"/>
+                                <label th:for="${publisher.getID()}">
+                                    <th:block th:text="${publisher.getName()}"/>
+                                </label>
+                            </div>
                         </div>
-                        <div th:if="${book} == null"
-                             th:each="publisher : ${publishers}">
-                            <input
-                                    type="radio"
-                                    th:id="${publisher.getID()}"
-                                    th:name="publisherID"
-                                    th:value="${publisher.getID()}"/>
-                            <label th:for="${publisher.getID()}">
-                                <th:block th:text = "${publisher.getName()}"/>
-                            </label>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="publication_date">Publication date</label>
-                </td>
-                <td>
-                    <input type="date"
-                           class="form-control"
-                           id="publication_date"
-                           th:name="publication_date"
-                           th:value="(${book} != null ? ${book.getPublication_date()} : '')"
-                           required
-                           placeholder="Enter publication date">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="isbn">ISBN</label>
-                </td>
-                <td>
-                    <input type="text"
-                           class="form-control"
-                           id="isbn"
-                           th:name="isbn"
-                           th:value="(${book} != null ? ${book.getIsbn()} : '')"
-                           required
-                           placeholder="Enter ISBN">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="isbn13">ISBN13</label>
-                </td>
-                <td>
-                    <input type="text"
-                           class="form-control"
-                           id="isbn13"
-                           th:name="isbn13"
-                           th:value="(${book} != null ? ${book.getIsbn13()} : '')"
-                           required
-                           placeholder="Enter ISBN13">
-                </td>
-            </tr>
-            <tr>
-                <td>Actions</td>
-                <td >
-                    <form th:action="@{'/books/add'}"
-                          th:method="POST">
-                        <button type="submit"
-                                class="btn btn-sm btn-danger">
-                            <i class="fa fa-trash">Save</i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        </form>
-        </tbody>
-    </table>
-</div>
-</div>
-</body>
-</html>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="publication_date">Publication date</label>
+                    </td>
+                    <td>
+                        <input type="date"
+                               class="form-control"
+                               id="publication_date"
+                               th:name="publication_date"
+                               th:value="(${book} != null ? ${book.getPublication_date()} : '')"
+                               required
+                               placeholder="Enter publication date">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="isbn">ISBN</label>
+                    </td>
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               id="isbn"
+                               th:name="isbn"
+                               th:value="(${book} != null ? ${book.getIsbn()} : '')"
+                               required
+                               placeholder="Enter ISBN">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="isbn13">ISBN13</label>
+                    </td>
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               id="isbn13"
+                               th:name="isbn13"
+                               th:value="(${book} != null ? ${book.getIsbn13()} : '')"
+                               required
+                               placeholder="Enter ISBN13">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Actions</td>
+                    <td>
+                        <form th:action="@{'/books/add'}"
+                              th:method="POST">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash">Save</i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </form>
+            </tbody>
+        </table>
+    </div>
+</th:block>

@@ -64,6 +64,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> getAllByName(String name) {
-        return authorRepository.findAllByNameLike('%' + name + '%');
+        return authorRepository.findAllByNameLike("%" + name + "%");
     }
 }

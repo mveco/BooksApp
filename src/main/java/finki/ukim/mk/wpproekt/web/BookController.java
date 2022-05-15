@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/books")
+@RequestMapping(value = {"/books", "/"})
 public class BookController {
 
     private final BookService bookService;
@@ -43,18 +43,20 @@ public class BookController {
             books = this.bookService.getAllByTitle(namePart);
 
         model.addAttribute("books", books);
-        return "books";
+        model.addAttribute("bodyContent", "books");
+        return "master-template";
     }
 
     @GetMapping("/{id}")
     public String findById(Model model, @PathVariable Integer id) {
         Book book = this.bookService.getById(id).get();
         model.addAttribute("book", book);
-        return "book-info";
+        model.addAttribute("bodyContent", "book-info");
+        return "master-template";
     }
 
-    @GetMapping("/addForm/{id}")
-    public String addForm(Model model, @PathVariable(value = "null", required = false) Integer id){
+    @GetMapping("/admin/addForm/{id}")
+    public String addForm(Model model, @PathVariable(required = false) Integer id){
         List<Author> authors = this.authorService.getAll();
         List<Publisher> publishers = this.publisherService.getAll();
         Book book = null;
@@ -64,7 +66,9 @@ public class BookController {
         model.addAttribute("book", book);
         model.addAttribute("authors", authors);
         model.addAttribute("publishers", publishers);
-        return "book-add";
+
+        model.addAttribute("bodyContent", "book-add");
+        return "master-template";
     }
 
     @PostMapping("/add")
@@ -84,7 +88,7 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/add/{id}")
     public String edit(@RequestParam Integer id,
                        @RequestParam String title,
                        @RequestParam Float avg_rating,
@@ -104,12 +108,11 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/admin/delete/{id}")
     public String delete(@PathVariable Integer id){
         this.bookService.delete(id);
         return "redirect:/books";
     }
-
-
+    
 
 }
