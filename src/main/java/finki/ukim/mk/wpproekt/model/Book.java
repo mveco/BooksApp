@@ -38,9 +38,6 @@ public class Book {
             inverseJoinColumns = { @JoinColumn(name = "authorID") })
     private List<Author> authors;
 
-//    @OneToMany(mappedBy = "book")
-//    private List<UserBookInteraction> reviews;
-
     public Book(String title, Float avg_rating, String isbn, String isbn13, String lang_code, Integer num_pages,
                 Integer ratings_count, Date publication_date, Publisher publisher, List<Author> authors) {
         this.title = title;

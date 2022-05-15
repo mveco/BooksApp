@@ -3,11 +3,11 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row" style="padding-top: 15px; padding-bottom: 10px;">
-                    <div class="col-sm-6"><h2><b>Your reading list</b></h2></div>
+                    <div class="col-sm-6"><h1 class="display-4 text-secondary"><b>Your reading list, <th:inline th:if="${#request.getRemoteUser() != null}" th:text="${#request.getRemoteUser()}"></th:inline></b></h1></div>
                 </div>
             </div>
         </div>
-        <table class="table table-bordered">
+        <table class="table table-bordered mt-3">
             <thead>
             <tr>
                 <th class="col-sm-4">Title</th>
@@ -50,7 +50,7 @@
                             <option th:value="5" th:text="5" th:selected="${book.getRating() != null && book.getRating() == 5}"></option>
                         </select>
                         <button type="submit"
-                                class="btn btn-sm btn-danger">
+                                class="btn btn-sm btn-success mt-1">
                             <i class="fa fa-trash">Rate</i>
                         </button>
                     </form>

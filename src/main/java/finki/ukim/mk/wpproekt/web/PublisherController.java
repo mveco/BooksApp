@@ -23,8 +23,8 @@ public class PublisherController {
     public String findAll(@RequestParam(required = false) String namePart, Model model) {
 
         List<Publisher> publishers;
-        if(namePart == null || namePart.equals(""))
-            publishers =  this.publisherService.getAll();
+        if (namePart == null || namePart.equals(""))
+            publishers = this.publisherService.getAll();
         else
             publishers = this.publisherService.getAllByName(namePart);
 
@@ -61,7 +61,7 @@ public class PublisherController {
     }
 
     @PostMapping("/admin/delete/{id}")
-    public String delete(@PathVariable Integer id){
+    public String delete(@PathVariable Integer id) {
 
         this.publisherService.deleteById(id);
         return "redirect:/publishers";

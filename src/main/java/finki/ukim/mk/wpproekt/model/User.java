@@ -36,10 +36,6 @@ public class User implements UserDetails {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-
-    @OneToMany(mappedBy = "user")
-    private List<UserBookInteraction> readingList;
-
     public User() {
     }
 
@@ -52,7 +48,6 @@ public class User implements UserDetails {
         this.age = age;
         this.quote = quote;
         this.role = role;
-        this.readingList = new LinkedList<>();
     }
 
     @Override

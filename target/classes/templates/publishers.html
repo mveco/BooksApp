@@ -3,12 +3,11 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-4"><h2><b>Publishers</b></h2></div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-4"><h1 class="display-4 text-secondary"><b>Publishers</b></h1></div>
+                    <div class="col-sm-4">
                         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                            <form action="publishers/add" method="POST">
+                            <form action="publishers/admin/add" method="POST">
                                 <div class="form-group">
-                                    <label for="name">Publisher name</label>
                                     <input id="name"
                                            type="text"
                                            class="form-control"
@@ -16,24 +15,20 @@
                                            required
                                            placeholder="Enter publisher name">
                                 </div>
-                                <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New
+                                <button type="submit" class="btn btn-success mb-2"><i class="fa fa-plus"></i> Add New
                                 </button>
                             </form>
                         </th:block>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4"><h2><b></b></h2></div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                         <form id='filter-form'>
                             <div class="form-group">
-                                <label for="namePart">Search by name</label>
                                 <input id="namePart"
                                        type="text"
                                        class="form-control"
                                        th:name="namePart"
                                        required
-                                       placeholder="Enter publisher name">
+                                       placeholder="Search by publisher name">
                             </div>
                             <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Search</button>
                         </form>
@@ -41,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered">
+        <table class="table table-bordered mt-3">
             <thead>
             <tr>
                 <th class="col-sm-8">Name</th>
@@ -51,22 +46,22 @@
             <tbody>
             <tr th:each="publisher: ${publishers}">
                 <td>
-                    <a th:href="@{'/publishers/{id}' (id=${publisher.getID()})}">
+                    <p>
                         <th:block th:text="${publisher.name}"/>
-                    </a>
+                    </p>
                 </td>
                 <td>
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                        <form th:action="@{'/publishers/delete/{id}' (id=${publisher.getID()})}"
+                        <form th:action="@{'/publishers/admin/delete/{id}' (id=${publisher.getID()})}"
                               th:method="POST">
                             <button type="submit"
-                                    class="btn btn-sm btn-danger">
+                                    class="btn btn-sm btn-danger mb-1">
                                 <i class="fa fa-trash">Delete</i>
                             </button>
                         </form>
                     </th:block>
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{'/publishers/edit/{id}' (id=${publisher.getID()})}"
+                        <a th:href="@{'/publishers/admin/edit/{id}' (id=${publisher.getID()})}"
                            class="btn btn-sm btn-info edit-product">
                             <i class="fa fa-trash">Edit</i>
                         </a>

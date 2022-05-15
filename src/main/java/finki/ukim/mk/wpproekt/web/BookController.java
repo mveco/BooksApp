@@ -4,11 +4,9 @@ import finki.ukim.mk.wpproekt.model.Author;
 import finki.ukim.mk.wpproekt.model.Book;
 import finki.ukim.mk.wpproekt.model.Publisher;
 import finki.ukim.mk.wpproekt.model.exceptions.BookNotFoundException;
-import finki.ukim.mk.wpproekt.model.exceptions.PublisherNotFoundException;
 import finki.ukim.mk.wpproekt.service.AuthorService;
 import finki.ukim.mk.wpproekt.service.BookService;
 import finki.ukim.mk.wpproekt.service.PublisherService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -84,16 +82,16 @@ public class BookController {
 
     @PostMapping("/admin/add-edit")
     public String addOrEdit(@RequestParam(required = false) Integer id,
-                       @RequestParam String title,
-                       @RequestParam Float avg_rating,
-                       @RequestParam(value = "", required = false) String isbn,
-                       @RequestParam(value = "", required = false) String isbn13,
-                       @RequestParam String lang_code,
-                       @RequestParam Integer num_pages,
-                       @RequestParam Integer ratings_count,
-                       @RequestParam(value = "", required = false) String publication_date,
-                       @RequestParam Integer publisherID,
-                       @RequestParam List<Integer> authorsID) throws ParseException {
+                            @RequestParam String title,
+                            @RequestParam Float avg_rating,
+                            @RequestParam(required = false) String isbn,
+                            @RequestParam(required = false) String isbn13,
+                            @RequestParam String lang_code,
+                            @RequestParam Integer num_pages,
+                            @RequestParam Integer ratings_count,
+                            @RequestParam(required = false) String publication_date,
+                            @RequestParam Integer publisherID,
+                            @RequestParam List<Integer> authorsID) throws ParseException {
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
         if (id == null) {

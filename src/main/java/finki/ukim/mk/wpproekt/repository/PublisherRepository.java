@@ -11,7 +11,10 @@ import java.util.Optional;
 public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
 
     Optional<Publisher> findByName(String name);
+
     List<Publisher> findAllByNameLike(String name);
+
     void deleteByName(String name);
+
     void deleteByID(Integer ID);
 }

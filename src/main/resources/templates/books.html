@@ -21,11 +21,11 @@
                         <label for="titlePart">Search by title</label>
                         <input id="titlePart"
                                type="text"
+                               th:size="30"
                                class="form-control"
                                th:name="titlePart"
                                required
-                               placeholder="Enter title"
-                               size="30">
+                               placeholder="Enter title">
                     </div>
                     <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Search</button>
                 </form>
@@ -65,16 +65,16 @@
                     <form th:action="@{'/books/admin/delete/{id}' (id=${book.getID()})}"
                           th:method="POST">
                         <button type="submit"
-                                class="btn btn-sm btn-danger">
+                                class="btn btn-sm btn-danger mb-1">
                             <i class="fa fa-trash">Delete</i>
                         </button>
                     </form>
                     <a th:href="@{'/books/admin/editForm/{id}' (id=${book.getID()})}"
-                       class="btn btn-sm btn-info edit-product">
+                       class="btn btn-sm btn-info edit-product mb-1">
                         <i class="fa fa-trash">Edit</i>
                     </a>
                     <a th:href="@{'/readingList/add/{id}' (id=${book.getID()})}"
-                       class="btn btn-sm btn-info edit-product">
+                       class="btn btn-sm btn-success">
                         <i class="fa fa-trash">Add to reading list</i>
                     </a>
                 </td>

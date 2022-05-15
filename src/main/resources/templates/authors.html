@@ -3,12 +3,11 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-4"><h2><b>Authors</b></h2></div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-4"><h1 class="display-4 text-secondary"><b>Authors</b></h1></div>
+                    <div class="col-sm-4">
                         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                            <form action="authors/add" method="POST">
+                            <form action="authors/admin/add" method="POST">
                                 <div class="form-group">
-                                    <label for="name">Author name</label>
                                     <input id="name"
                                            type="text"
                                            class="form-control"
@@ -16,24 +15,21 @@
                                            required
                                            placeholder="Enter author name">
                                 </div>
-                                <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New
+                                <button type="submit" class="btn btn-success add-new mb-2"><i class="fa fa-plus"></i>
+                                    Add New
                                 </button>
                             </form>
                         </th:block>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4"><h2><b></b></h2></div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                         <form id='filter-form'>
                             <div class="form-group">
-                                <label for="namePart">Search by name</label>
                                 <input id="namePart"
                                        type="text"
                                        class="form-control"
                                        th:name="namePart"
                                        required
-                                       placeholder="Enter author name">
+                                       placeholder="Search by author name">
                             </div>
                             <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Search</button>
                         </form>
@@ -41,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered">
+        <table class="table table-bordered mt-3">
             <thead>
             <tr>
                 <th class="col-sm-8">Name</th>
@@ -51,22 +47,22 @@
             <tbody>
             <tr th:each="author: ${authors}">
                 <td>
-                    <a th:href="@{'/author/{id}' (id=${author.getID()})}">
+                    <p>
                         <th:block th:text="${author.name}"/>
-                    </a>
+                    </p>
                 </td>
                 <td>
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                        <form th:action="@{'/authors/delete/{id}' (id=${author.getID()})}"
+                        <form th:action="@{'/authors/admin/delete/{id}' (id=${author.getID()})}"
                               th:method="POST">
                             <button type="submit"
-                                    class="btn btn-sm btn-danger">
+                                    class="btn btn-sm btn-danger mb-1">
                                 <i class="fa fa-trash">Delete</i>
                             </button>
                         </form>
                     </th:block>
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{'/authors/edit/{id}' (id=${author.getID()})}"
+                        <a th:href="@{'/authors/admin/edit/{id}' (id=${author.getID()})}"
                            class="btn btn-sm btn-info edit-product">
                             <i class="fa fa-trash">Edit</i>
                         </a>

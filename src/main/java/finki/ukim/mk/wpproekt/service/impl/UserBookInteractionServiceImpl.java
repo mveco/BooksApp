@@ -35,35 +35,12 @@ public class UserBookInteractionServiceImpl implements UserBookInteractionServic
         Book book = this.bookRepository.findById(bookID).orElseThrow(() -> new BookNotFoundException());
 
         UserBookInteraction ubi = new UserBookInteraction(user, book);
-        return Optional.of( this.userBookInteractionRepository.save(ubi) );
-    }
-
-    @Override
-    public Optional<UserBookInteraction> update(Integer id, String username, Integer bookID, boolean read_flag, Integer rating, String reviewText) {
-
-        User user = this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
-        Book book = this.bookRepository.findById(bookID).orElseThrow(() -> new BookNotFoundException());
-
-        UserBookInteraction ubi = this.userBookInteractionRepository.findById(id).orElseThrow(() -> new UserBookInteractionNotFoundException());
-
-        ubi.setReadFlag(read_flag);
-        ubi.setRating(rating);
-        ubi.setReviewText(reviewText);
-
         return Optional.of(this.userBookInteractionRepository.save(ubi));
     }
 
     @Override
     public Optional<UserBookInteraction> findById(Integer id) {
         return this.userBookInteractionRepository.findById(id);
-    }
-
-    @Override
-    public Optional<UserBookInteraction> read(Integer id) {
-
-        UserBookInteraction ubi = this.userBookInteractionRepository.findById(id).orElseThrow(() -> new UserBookInteractionNotFoundException());
-        ubi.setReadFlag(true);
-        return Optional.of(this.userBookInteractionRepository.save(ubi));
     }
 
     @Override
@@ -76,7 +53,6 @@ public class UserBookInteractionServiceImpl implements UserBookInteractionServic
     @Override
     public List<UserBookInteraction> findAllByUser(User user) {
 
-
         return this.userBookInteractionRepository.findAllByUser(user);
     }
 
@@ -85,9 +61,4 @@ public class UserBookInteractionServiceImpl implements UserBookInteractionServic
         this.userBookInteractionRepository.deleteById(ID);
     }
 
-
-    @Override
-    public List<UserBookInteraction> getAllInReadingList() {
-        return null;
-    }
 }

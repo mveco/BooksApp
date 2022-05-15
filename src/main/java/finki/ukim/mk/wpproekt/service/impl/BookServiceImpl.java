@@ -32,10 +32,10 @@ public class BookServiceImpl implements BookService {
     public Optional<Book> create(String title, Float avg_rating, String isbn, String isbn13, String lang_code,
                                  Integer num_pages, Integer ratings_count, Date publication_date, Integer publisherID,
                                  List<Integer> authorsID) {
-        if (title == null || title.isEmpty() ){
+        if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        Publisher publisher =this.publisherRepository.findById(publisherID).orElseThrow(() -> new PublisherNotFoundException());
+        Publisher publisher = this.publisherRepository.findById(publisherID).orElseThrow(() -> new PublisherNotFoundException());
         List<Author> authors = this.authorRepository.findAllById(authorsID);
 
         this.bookRepository.deleteByTitle(title);
@@ -47,10 +47,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Optional<Book> update(Integer ID, String title, Float avg_rating, String isbn, String isbn13, String lang_code,
                                  Integer num_pages, Integer ratings_count, Date publication_date, Integer publisherID, List<Integer> authorsID) {
-        if (title == null || title.isEmpty() || ID == null ){
+        if (title == null || title.isEmpty() || ID == null) {
             throw new IllegalArgumentException();
         }
-        Publisher publisher =this.publisherRepository.findById(publisherID).orElseThrow(() -> new PublisherNotFoundException());
+        Publisher publisher = this.publisherRepository.findById(publisherID).orElseThrow(() -> new PublisherNotFoundException());
         List<Author> authors = this.authorRepository.findAllById(authorsID);
 
         Book b = this.bookRepository.findById(ID).orElseThrow(() -> new BookNotFoundException());
@@ -68,22 +68,15 @@ public class BookServiceImpl implements BookService {
         return Optional.of(this.bookRepository.save(b));
     }
 
-
     @Override
     public void delete(Integer ID) {
         this.bookRepository.deleteById(ID);
     }
 
     @Override
-    public Optional<Book> getByTitleLike(String title) {
-        return bookRepository.findByTitleLike("%" + title + "%");
-    }
-
-    @Override
     public Optional<Book> getById(Integer ID) {
         return this.bookRepository.findById(ID);
     }
-
 
     @Override
     public List<Book> getAll() {

@@ -13,9 +13,7 @@ public class UserBookInteraction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
 
-    boolean readFlag;
     Integer rating;
-    String reviewText;
 
     @ManyToOne
     private User user;
@@ -26,9 +24,7 @@ public class UserBookInteraction {
     public UserBookInteraction(User user, Book book) {
         this.user = user;
         this.book = book;
-        this.readFlag = false;
         this.rating = null;
-        this.reviewText = null;
     }
 
     public UserBookInteraction() {

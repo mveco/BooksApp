@@ -1,9 +1,8 @@
 package finki.ukim.mk.wpproekt.web;
 
-import finki.ukim.mk.wpproekt.model.Book;
 import finki.ukim.mk.wpproekt.model.User;
 import finki.ukim.mk.wpproekt.model.UserBookInteraction;
-import finki.ukim.mk.wpproekt.model.exceptions.UBINotFound;
+import finki.ukim.mk.wpproekt.model.exceptions.UserBookInteractionNotFoundException;
 import finki.ukim.mk.wpproekt.service.BookService;
 import finki.ukim.mk.wpproekt.service.UserBookInteractionService;
 import finki.ukim.mk.wpproekt.service.UserService;
@@ -20,15 +19,13 @@ import java.util.List;
 public class ReadingListController {
 
     private final UserBookInteractionService service;
-    private final UserService userService;
 
-    public ReadingListController(UserBookInteractionService service, BookService bookService, UserService userService) {
+    public ReadingListController(UserBookInteractionService service, BookService bookService) {
         this.service = service;
-        this.userService = userService;
     }
 
     @GetMapping
-    public String usersReadingList(HttpServletRequest req, Authentication authentication, Model model){
+    public String usersReadingList(HttpServletRequest req, Authentication authentication, Model model) {
 
         User user = (User) authentication.getPrincipal();
         List<UserBookInteraction> books = this.service.findAllByUser(user);
@@ -43,13 +40,12 @@ public class ReadingListController {
 
         User user = (User) authentication.getPrincipal();
         UserBookInteraction ubi = this.service.create(user.getUsername(), id)
-                .orElseThrow(() -> new UBINotFound());
+                .orElseThrow(() -> new UserBookInteractionNotFoundException());
         return "redirect:/home";
     }
 
-
     @PostMapping("/rate")
-    public String rate(@RequestParam Integer id, @RequestParam Integer rating){
+    public String rate(@RequestParam Integer id, @RequestParam Integer rating) {
 
         service.rate(id, rating);
         return "redirect:/home";
