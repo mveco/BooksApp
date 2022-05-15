@@ -24,9 +24,6 @@ public class Book {
     private Integer num_pages;
     private Integer ratings_count;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    private Date publication_date; //may have problem with format?
-
     @ManyToOne
     @JoinColumn(name="publisherID")
     private Publisher publisher;
@@ -39,7 +36,7 @@ public class Book {
     private List<Author> authors;
 
     public Book(String title, Float avg_rating, String isbn, String isbn13, String lang_code, Integer num_pages,
-                Integer ratings_count, Date publication_date, Publisher publisher, List<Author> authors) {
+                Integer ratings_count, Publisher publisher, List<Author> authors) {
         this.title = title;
         this.avg_rating = avg_rating;
         this.isbn = isbn;
@@ -47,7 +44,6 @@ public class Book {
         this.lang_code = lang_code;
         this.num_pages = num_pages;
         this.ratings_count = ratings_count;
-        this.publication_date = publication_date;
         this.publisher = publisher;
         this.authors = authors;
     }

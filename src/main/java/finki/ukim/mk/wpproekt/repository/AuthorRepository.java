@@ -2,6 +2,7 @@ package finki.ukim.mk.wpproekt.repository;
 
 import finki.ukim.mk.wpproekt.model.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Optional;
 public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
     Optional<Author> findByName(String name);
-    List<Author> findAllByNameLike(String name);
+    List<Author> findAllByNameLike(@Param("name") String name);
     void deleteById(Integer id);
     void deleteByName(String name);
 }

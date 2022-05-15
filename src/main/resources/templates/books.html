@@ -3,12 +3,14 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row" style="padding-top: 15px; padding-bottom: 10px;">
-                    <div class="col-sm-4"><h1 class="display-4 text-secondary" ><b>Books</b></h1></div>
+                    <div class="col-sm-4"><h1 class="display-4 text-secondary"><b>Books</b></h1></div>
                     <div class="col-sm-8">
-                        <a th:href="@{'/books/admin/addForm'}"
-                           class="btn btn-bg btn-success">
-                            <i class="fa fa-trash">Add new</i>
-                        </a>
+                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <a th:href="@{'/books/admin/addForm'}"
+                               class="btn btn-bg btn-success">
+                                <i class="fa fa-trash">Add new</i>
+                            </a>
+                        </th:block>
                     </div>
                 </div>
             </div>
@@ -62,21 +64,27 @@
                     <th:block th:text="${book.getNum_pages()}"/>
                 </td>
                 <td>
-                    <form th:action="@{'/books/admin/delete/{id}' (id=${book.getID()})}"
-                          th:method="POST">
-                        <button type="submit"
-                                class="btn btn-sm btn-danger mb-1">
-                            <i class="fa fa-trash">Delete</i>
-                        </button>
-                    </form>
-                    <a th:href="@{'/books/admin/editForm/{id}' (id=${book.getID()})}"
-                       class="btn btn-sm btn-info edit-product mb-1">
-                        <i class="fa fa-trash">Edit</i>
-                    </a>
-                    <a th:href="@{'/readingList/add/{id}' (id=${book.getID()})}"
-                       class="btn btn-sm btn-success">
-                        <i class="fa fa-trash">Add to reading list</i>
-                    </a>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <form th:action="@{'/books/admin/delete/{id}' (id=${book.getID()})}"
+                              th:method="POST">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger mb-1">
+                                <i class="fa fa-trash">Delete</i>
+                            </button>
+                        </form>
+                    </th:block>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a th:href="@{'/books/admin/editForm/{id}' (id=${book.getID()})}"
+                           class="btn btn-sm btn-info edit-product mb-1">
+                            <i class="fa fa-trash">Edit</i>
+                        </a>
+                    </th:block>
+                    <th:block sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+                        <a th:href="@{'/readingList/add/{id}' (id=${book.getID()})}"
+                           class="btn btn-sm btn-success">
+                            <i class="fa fa-trash">Add to reading list</i>
+                        </a>
+                    </th:block>
                 </td>
             </tr>
             </tbody>

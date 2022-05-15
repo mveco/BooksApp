@@ -58,12 +58,6 @@
                 </td>
             </tr>
             <tr>
-                <td>Publication date</td>
-                <td>
-                    <th:block th:text="${#calendars.format(book.getPublication_date(), 'MM/dd/yyyy')}"/>
-                </td>
-            </tr>
-            <tr>
                 <td>ISBN</td>
                 <td>
                     <th:block th:text="${book.getIsbn()}"/>
@@ -78,17 +72,21 @@
             <tr>
                 <td>Actions</td>
                 <td>
-                    <form th:action="@{'/books/admin/delete/{id}' (id=${book.getID()})}"
-                          th:method="POST">
-                        <button type="submit"
-                                class="btn btn-sm btn-danger">
-                            <i class="fa fa-trash">Delete</i>
-                        </button>
-                    </form>
-                    <a th:href="@{'/books/admin/edit/{id}' (id=${book.getID()})}"
-                       class="btn btn-sm btn-info edit-product">
-                        <i class="fa fa-trash">Edit</i>
-                    </a>
+                    <th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <form th:action="@{'/books/admin/delete/{id}' (id=${book.getID()})}"
+                              th:method="POST">
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger mb-1">
+                                <i class="fa fa-trash">Delete</i>
+                            </button>
+                        </form>
+                    </th:block>
+                    <th:block sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                        <a th:href="@{'/books/admin/editForm/{id}' (id=${book.getID()})}"
+                           class="btn btn-sm btn-info edit-product">
+                            <i class="fa fa-trash">Edit</i>
+                        </a>
+                    </th:block>
                 </td>
             </tr>
             </tbody>

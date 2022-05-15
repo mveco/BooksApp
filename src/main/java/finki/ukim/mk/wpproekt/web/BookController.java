@@ -33,7 +33,7 @@ public class BookController {
     }
 
     @GetMapping
-    public String findAll(@RequestParam(required = false) String titlePart, Model model) {
+    public String findAll(@RequestParam(value = "titlePart", required = false) String titlePart, Model model) {
         List<Book> books;
         if (titlePart == null || titlePart.equals(""))
             books = this.bookService.getAll();
@@ -89,17 +89,14 @@ public class BookController {
                             @RequestParam String lang_code,
                             @RequestParam Integer num_pages,
                             @RequestParam Integer ratings_count,
-                            @RequestParam(required = false) String publication_date,
                             @RequestParam Integer publisherID,
                             @RequestParam List<Integer> authorsID) throws ParseException {
-        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
         if (id == null) {
-            this.bookService.create(title, avg_rating, isbn, isbn13, lang_code, num_pages, ratings_count,
-                    date.parse(publication_date), publisherID, authorsID);
+            this.bookService.create(title, avg_rating, isbn, isbn13, lang_code, num_pages, ratings_count, publisherID, authorsID);
         } else {
             this.bookService.update(id, title, avg_rating, isbn, isbn13, lang_code, num_pages,
-                    ratings_count, date.parse(publication_date), publisherID, authorsID);
+                    ratings_count,publisherID, authorsID);
         }
         return "redirect:/books";
     }

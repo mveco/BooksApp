@@ -20,7 +20,7 @@ public class AuthorController {
     }
 
     @GetMapping
-    public String findAll(@RequestParam(required = false) String namePart, Model model) {
+    public String findAll(@RequestParam(value = "namePart", required = false) String namePart, Model model) {
 
         List<Author> authors;
         if(namePart == null || namePart.equals(""))

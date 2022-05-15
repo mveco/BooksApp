@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Optional<Book> create(String title, Float avg_rating, String isbn, String isbn13, String lang_code,
-                                 Integer num_pages, Integer ratings_count, Date publication_date, Integer publisherID,
+                                 Integer num_pages, Integer ratings_count, Integer publisherID,
                                  List<Integer> authorsID) {
         if (title == null || title.isEmpty()) {
             throw new IllegalArgumentException();
@@ -39,14 +39,14 @@ public class BookServiceImpl implements BookService {
         List<Author> authors = this.authorRepository.findAllById(authorsID);
 
         this.bookRepository.deleteByTitle(title);
-        Book b = new Book(title, avg_rating, isbn, isbn13, lang_code, num_pages, ratings_count, publication_date,
+        Book b = new Book(title, avg_rating, isbn, isbn13, lang_code, num_pages, ratings_count,
                 publisher, authors);
         return Optional.of(this.bookRepository.save(b));
     }
 
     @Override
     public Optional<Book> update(Integer ID, String title, Float avg_rating, String isbn, String isbn13, String lang_code,
-                                 Integer num_pages, Integer ratings_count, Date publication_date, Integer publisherID, List<Integer> authorsID) {
+                                 Integer num_pages, Integer ratings_count, Integer publisherID, List<Integer> authorsID) {
         if (title == null || title.isEmpty() || ID == null) {
             throw new IllegalArgumentException();
         }
@@ -61,7 +61,6 @@ public class BookServiceImpl implements BookService {
         b.setLang_code(lang_code);
         b.setNum_pages(num_pages);
         b.setRatings_count(ratings_count);
-        b.setPublication_date(publication_date);
         b.setPublisher(publisher);
         b.setAuthors(authors);
 

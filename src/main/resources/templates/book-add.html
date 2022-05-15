@@ -155,20 +155,6 @@
                 </tr>
                 <tr>
                     <td>
-                        <label for="publication_date">Publication date</label>
-                    </td>
-                    <td>
-                        <input type="date" th:with="d = ${book.getPublication_date()}"
-                               class="form-control"
-                               id="publication_date"
-                               th:name="publication_date"
-                               th:value="(${book} != null ? ${#dates.format(d, 'MM/dd/yyyy')} : '')"
-                               required
-                               placeholder="Enter publication date">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <label for="isbn">ISBN</label>
                     </td>
                     <td>
@@ -201,7 +187,7 @@
                         <form th:action="@{'/books/add'}"
                               th:method="POST">
                             <button type="submit"
-                                    class="btn btn-sm btn-danger">
+                                    class="btn btn-sm btn-success">
                                 <i class="fa fa-trash">Save</i>
                             </button>
                         </form>
