@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 @Data
@@ -37,7 +38,7 @@ public class User implements UserDetails {
 
 
     @OneToMany(mappedBy = "user")
-    private List<UserBookInteraction> reviews;
+    private List<UserBookInteraction> readingList;
 
     public User() {
     }
@@ -51,6 +52,7 @@ public class User implements UserDetails {
         this.age = age;
         this.quote = quote;
         this.role = role;
+        this.readingList = new LinkedList<>();
     }
 
     @Override

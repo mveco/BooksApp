@@ -1,6 +1,7 @@
 package finki.ukim.mk.wpproekt.model;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,8 @@ public class Book {
     private String lang_code;
     private Integer num_pages;
     private Integer ratings_count;
+
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date publication_date; //may have problem with format?
 
     @ManyToOne
@@ -35,8 +38,8 @@ public class Book {
             inverseJoinColumns = { @JoinColumn(name = "authorID") })
     private List<Author> authors;
 
-    @OneToMany(mappedBy = "book")
-    private List<UserBookInteraction> reviews;
+//    @OneToMany(mappedBy = "book")
+//    private List<UserBookInteraction> reviews;
 
     public Book(String title, Float avg_rating, String isbn, String isbn13, String lang_code, Integer num_pages,
                 Integer ratings_count, Date publication_date, Publisher publisher, List<Author> authors) {

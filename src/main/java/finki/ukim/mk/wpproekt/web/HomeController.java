@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = {"/", "/home"})
 public class HomeController {
 
+
     @GetMapping
     public String getHomePage(Model model) {
-        model.addAttribute("bodyContent", "home");
-        return "master-template";
+        return "redirect:/readingList";
     }
 
     @GetMapping("/access_denied")

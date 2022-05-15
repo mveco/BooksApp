@@ -60,7 +60,7 @@
             <tr>
                 <td>Publication date</td>
                 <td>
-                    <th:block th:text="${book.getPublication_date()}"/>
+                    <th:block th:text="${#calendars.format(book.getPublication_date(), 'MM/dd/yyyy')}"/>
                 </td>
             </tr>
             <tr>

@@ -14,7 +14,7 @@
             </tr>
             </thead>
             <tbody>
-            <form action="/books/add" method="post">
+            <form th:action="@{'/books/admin/add-edit'}" method="POST">
                 <tr>
                     <input id="id" type="hidden" name="id" th:value="(${book} != null ? ${book.getID()} : null)">
                 </tr>
@@ -41,7 +41,7 @@
                             <div th:if="${book} != null"
                                  th:each="author : ${authors}">
                                 <input
-                                        th:selected="${book.getAuthors() != null &&
+                                        th:checked="${book.getAuthors() != null &&
                                     book.getAuthors().contains(author)}"
                                         type="checkbox"
                                         th:id="${author.getID()}"
@@ -130,8 +130,7 @@
                             <div th:if="${book} != null"
                                  th:each="publisher : ${publishers}">
                                 <input
-                                        th:selected="${book.getPublisher() != null &&
-                                    book.getPublisher().getID() == publisher.getID()}"
+                                        th:checked="${book.getPublisher().getID() == publisher.getID()}"
                                         type="radio"
                                         th:id="${publisher.getID()}"
                                         th:name="publisherID"
@@ -159,11 +158,11 @@
                         <label for="publication_date">Publication date</label>
                     </td>
                     <td>
-                        <input type="date"
+                        <input type="date" th:with="d = ${book.getPublication_date()}"
                                class="form-control"
                                id="publication_date"
                                th:name="publication_date"
-                               th:value="(${book} != null ? ${book.getPublication_date()} : '')"
+                               th:value="(${book} != null ? ${#dates.format(d, 'MM/dd/yyyy')} : '')"
                                required
                                placeholder="Enter publication date">
                     </td>

@@ -16,7 +16,7 @@ public interface BookService{
                           Integer ratings_count, Date publication_date, Integer publisherID, List<Integer> authorsID);
     void delete(Integer ID);
 
-    Optional<Book> getByTitle(String title);
+    Optional<Book> getByTitleLike(String title);
     Optional<Book> getById(Integer ID);
 
     List<Book> getAll();

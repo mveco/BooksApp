@@ -1,11 +1,11 @@
 <th:block xmlns:th="http://www.thymeleaf.org">
-    <div class="container py-7">
+    <div class="container">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row" style="padding-top: 15px; padding-bottom: 10px;">
-                    <div class="col-sm-6"><h2><b>Books</b></h2></div>
-                    <div class="col-sm-6">
-                        <a th:href="@{'/books/admin/addForm/{}'}"
+                    <div class="col-sm-4"><h1 class="display-4 text-secondary" ><b>Books</b></h1></div>
+                    <div class="col-sm-8">
+                        <a th:href="@{'/books/admin/addForm'}"
                            class="btn btn-bg btn-success">
                             <i class="fa fa-trash">Add new</i>
                         </a>
@@ -13,7 +13,25 @@
                 </div>
             </div>
         </div>
-        <table class="table table-bordered">
+        <div class="row">
+            <div class="col-sm-4"><h2><b></b></h2></div>
+            <div class="col-sm-8">
+                <form id='filter-form'>
+                    <div class="form-group">
+                        <label for="titlePart">Search by title</label>
+                        <input id="titlePart"
+                               type="text"
+                               class="form-control"
+                               th:name="titlePart"
+                               required
+                               placeholder="Enter title"
+                               size="30">
+                    </div>
+                    <button type="submit" class="btn btn-info add-new"><i class="fa fa-plus"></i>Search</button>
+                </form>
+            </div>
+        </div>
+        <table class="table table-bordered mt-3">
             <thead>
             <tr>
                 <th class="col-sm-4">Title</th>
@@ -51,9 +69,13 @@
                             <i class="fa fa-trash">Delete</i>
                         </button>
                     </form>
-                    <a th:href="@{'/books/admin/addForm/{id}' (id=${book.getID()})}"
+                    <a th:href="@{'/books/admin/editForm/{id}' (id=${book.getID()})}"
                        class="btn btn-sm btn-info edit-product">
                         <i class="fa fa-trash">Edit</i>
+                    </a>
+                    <a th:href="@{'/readingList/add/{id}' (id=${book.getID()})}"
+                       class="btn btn-sm btn-info edit-product">
+                        <i class="fa fa-trash">Add to reading list</i>
                     </a>
                 </td>
             </tr>

@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(name = "user_book")
 public class UserBookInteraction {
 
     @Id
@@ -13,8 +14,6 @@ public class UserBookInteraction {
     private Integer ID;
 
     boolean readFlag;
-    boolean readingList;
-    boolean like;
     Integer rating;
     String reviewText;
 
@@ -24,13 +23,15 @@ public class UserBookInteraction {
     @ManyToOne
     private Book book;
 
-    public UserBookInteraction(User user, Book book, boolean readFlag, boolean readingList, boolean like, Integer rating, String reviewText) {
-        this.readFlag = readFlag;
-        this.readingList = readingList;
-        this.like = like;
-        this.rating = rating;
-        this.reviewText = reviewText;
+    public UserBookInteraction(User user, Book book) {
         this.user = user;
         this.book = book;
+        this.readFlag = false;
+        this.rating = null;
+        this.reviewText = null;
+    }
+
+    public UserBookInteraction() {
+
     }
 }

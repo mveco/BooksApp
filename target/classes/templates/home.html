@@ -1,0 +1,62 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <div class="container py-7">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row" style="padding-top: 15px; padding-bottom: 10px;">
+                    <div class="col-sm-6"><h2><b>Your reading list</b></h2></div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="col-sm-4">Title</th>
+                <th class="col-sm-1">No. Pages</th>
+                <th class="col-sm-1">Language</th>
+                <th class="col-sm-1">Rating</th>
+                <th class="col-sm-1">No. Ratings</th>
+                <th class="col-sm-2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book: ${books}">
+                <td>
+                    <a th:href="@{'/books/{id}' (id=${book.getID()})}">
+                        <th:block th:text="${book.getBook().getTitle()}"/>
+                    </a>
+                </td>
+                <td>
+                    <th:block th:text="${book.getBook().getNum_pages()}"/>
+                </td>
+                <td>
+                    <th:block th:text="${book.getBook().getLang_code()}"/>
+                </td>
+                <td>
+                    <th:block th:text="${book.getBook().getAvg_rating()}"/>
+                </td>
+                <td>
+                    <th:block th:text="${book.getBook().getNum_pages()}"/>
+                </td>
+                <td>
+                    <form th:action="@{'/readingList/rate'}"
+                          th:method="POST">
+                        <input id="id" type="hidden" name="id" th:value="${book.getID()}">
+                        <select name="rating" class="form-control">
+                            <option th:value="null" th:text="rate" th:selected="${book.getRating() == null}"></option>
+                            <option th:value="1" th:text="1" th:selected="${book.getRating() != null && book.getRating() == 1}"></option>
+                            <option th:value="2" th:text="2" th:selected="${book.getRating() != null && book.getRating() == 2}"></option>
+                            <option th:value="3" th:text="3" th:selected="${book.getRating() != null && book.getRating() == 3}"></option>
+                            <option th:value="4" th:text="4" th:selected="${book.getRating() != null && book.getRating() == 4}"></option>
+                            <option th:value="5" th:text="5" th:selected="${book.getRating() != null && book.getRating() == 5}"></option>
+                        </select>
+                        <button type="submit"
+                                class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash">Rate</i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>

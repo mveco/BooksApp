@@ -10,10 +10,12 @@ import finki.ukim.mk.wpproekt.repository.BookRepository;
 import finki.ukim.mk.wpproekt.repository.UserBookInteractionRepository;
 import finki.ukim.mk.wpproekt.repository.UserRepository;
 import finki.ukim.mk.wpproekt.service.UserBookInteractionService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserBookInteractionServiceImpl implements UserBookInteractionService {
 
     private final UserRepository userRepository;
@@ -27,19 +29,17 @@ public class UserBookInteractionServiceImpl implements UserBookInteractionServic
     }
 
     @Override
-    public Optional<UserBookInteraction> create(String username, Integer bookID, boolean read_flag,
-                                                boolean reading_list, boolean like, Integer rating, String reviewText) {
+    public Optional<UserBookInteraction> create(String username, Integer bookID) {
 
         User user = this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Book book = this.bookRepository.findById(bookID).orElseThrow(() -> new BookNotFoundException());
 
-        UserBookInteraction ubi = new UserBookInteraction(user, book, read_flag, reading_list,
-                like, rating, reviewText);
+        UserBookInteraction ubi = new UserBookInteraction(user, book);
         return Optional.of( this.userBookInteractionRepository.save(ubi) );
     }
 
     @Override
-    public Optional<UserBookInteraction> update(Integer id, String username, Integer bookID, boolean read_flag, boolean reading_list, boolean like, Integer rating, String reviewText) {
+    public Optional<UserBookInteraction> update(Integer id, String username, Integer bookID, boolean read_flag, Integer rating, String reviewText) {
 
         User user = this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         Book book = this.bookRepository.findById(bookID).orElseThrow(() -> new BookNotFoundException());
@@ -47,12 +47,37 @@ public class UserBookInteractionServiceImpl implements UserBookInteractionServic
         UserBookInteraction ubi = this.userBookInteractionRepository.findById(id).orElseThrow(() -> new UserBookInteractionNotFoundException());
 
         ubi.setReadFlag(read_flag);
-        ubi.setReadingList(reading_list);
-        ubi.setLike(like);
         ubi.setRating(rating);
         ubi.setReviewText(reviewText);
 
         return Optional.of(this.userBookInteractionRepository.save(ubi));
+    }
+
+    @Override
+    public Optional<UserBookInteraction> findById(Integer id) {
+        return this.userBookInteractionRepository.findById(id);
+    }
+
+    @Override
+    public Optional<UserBookInteraction> read(Integer id) {
+
+        UserBookInteraction ubi = this.userBookInteractionRepository.findById(id).orElseThrow(() -> new UserBookInteractionNotFoundException());
+        ubi.setReadFlag(true);
+        return Optional.of(this.userBookInteractionRepository.save(ubi));
+    }
+
+    @Override
+    public Optional<UserBookInteraction> rate(Integer id, Integer rating) {
+        UserBookInteraction ubi = this.userBookInteractionRepository.findById(id).orElseThrow(() -> new UserBookInteractionNotFoundException());
+        ubi.setRating(rating);
+        return Optional.of(this.userBookInteractionRepository.save(ubi));
+    }
+
+    @Override
+    public List<UserBookInteraction> findAllByUser(User user) {
+
+
+        return this.userBookInteractionRepository.findAllByUser(user);
     }
 
     @Override

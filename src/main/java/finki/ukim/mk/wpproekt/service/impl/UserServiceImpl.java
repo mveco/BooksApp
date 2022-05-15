@@ -2,6 +2,7 @@ package finki.ukim.mk.wpproekt.service.impl;
 
 import finki.ukim.mk.wpproekt.model.Role;
 import finki.ukim.mk.wpproekt.model.User;
+import finki.ukim.mk.wpproekt.model.UserBookInteraction;
 import finki.ukim.mk.wpproekt.model.exceptions.InvalidUsernameOrPasswordException;
 import finki.ukim.mk.wpproekt.model.exceptions.PasswordsDoNotMatchException;
 import finki.ukim.mk.wpproekt.model.exceptions.UsernameAlreadyExistsException;
@@ -41,4 +42,5 @@ public class UserServiceImpl implements UserService {
         User user = new User(username,passwordEncoder.encode(password),name,surname,age,quote,userRole);
         return userRepository.save(user);
     }
+
 }
